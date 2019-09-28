@@ -4,8 +4,37 @@ import 'package:flutter/services.dart';
 void main() {
   runApp(MaterialApp(
     home: Home(),
-    debugShowCheckedModeBanner: false,
   ));
+}
+
+class Splash extends StatefulWidget {
+  @override
+  _SplashState createState() => _SplashState();
+}
+
+class _SplashState extends State<Splash> {
+  @override
+  void initState() {
+    super.initState();
+    SystemChrome.setEnabledSystemUIOverlays([]);
+    Future.delayed(Duration(seconds: 2)).then((_) {
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => MaterialApp()));
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        color: Colors.deepPurple[300],
+        child: Center(
+          child: Container(
+            width: 150,
+            height: 150,
+            child: Image.asset("images/brand.jpg"),
+          ),
+        ));
+  }
 }
 
 class Home extends StatefulWidget {
@@ -14,13 +43,6 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-
-  @override
-  void initState() {
-    super.initState();
-    SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
-  }
-
   TextEditingController weightController = TextEditingController();
   TextEditingController heightController = TextEditingController();
 
@@ -48,7 +70,8 @@ class _HomeState extends State<Home> {
       } else if (imc >= 18.5 && imc < 24.9) {
         _infoText = "Peso Ideal \n(IMC ${imc.toStringAsPrecision(3)})";
       } else if (imc >= 24.9 && imc < 29.9) {
-        _infoText = "Levemente Acima do Peso \n(IMC ${imc.toStringAsPrecision(3)})";
+        _infoText =
+            "Levemente Acima do Peso \n(IMC ${imc.toStringAsPrecision(3)})";
       } else if (imc >= 29.9 && imc < 34.9) {
         _infoText = "Obesidade Grau I \n(IMC ${imc.toStringAsPrecision(3)})";
       } else if (imc >= 34.9 && imc < 39.9) {
